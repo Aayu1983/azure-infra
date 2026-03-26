@@ -23,7 +23,7 @@ on:
 
 jobs:  
   Deploy:
-    uses: ./.github/workflows/terraform-template-multi.yml
+    uses: Aayu1983/centeral-repo/.github/workflows/terraform-template-multi.yml@main
     with:
       environment: ${{ github.event.inputs.target_env }}
       working_directory: ${{ github.event.inputs.working_directory }}
