@@ -29,6 +29,12 @@ jobs:
       working_directory: ${{ github.event.inputs.working_directory }}
       tf_state_key: "${{ github.event.inputs.target_env }}.tfstate"
 
-    secrets: inherit
+    secrets: 
+      client_id: ${{ secrets.AZURE_CLIENT_ID }}
+      subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      tenant_id: ${{ secrets.AZURE_TENANT_ID }}
+      resource_group_name: ${{ secrets.RS_NAME }}
+      storage_account_name: ${{ secrets.ST_NAME }}
+      container_name: ${{ secrets.CAN_NAME }}
       
      
