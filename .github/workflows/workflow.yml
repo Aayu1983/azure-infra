@@ -43,8 +43,7 @@ jobs:
   preflight:
     name: "Preflight"
     uses: Aayu1983/centeral-repo/.github/workflows/Preflight.yml@main
-    outputs:
-      selected_branch: ${{ jobs.setup.outputs.selected_branch }}
+    
     with:
       target_env: ${{ inputs.target_env }}
       working_directory: ${{ inputs.working_directory }}
@@ -52,10 +51,10 @@ jobs:
   plan:
     name: "Plan"
     needs: preflight
-    uses:  Aayu1983/centeral-repo/.github/workflows/plan.tf.yml@main
+    uses: Aayu1983/centeral-repo/.github/workflows/plan.tf.yml@main
     with:
       target_env: ${{ inputs.target_env }}
-      selected_branch: ${{ needs.preflight.outputs.selected_branch }}
+      selected_branch: ${{ github.ref_name }}
       working_directory: ${{ inputs.working_directory }}
       change_ref: ${{ inputs.change_ref }}
       change_reason: ${{ inputs.change_reason }}
@@ -78,7 +77,7 @@ jobs:
     with:
       target_env: ${{ inputs.target_env }}
       working_directory: ${{ inputs.working_directory }}
-      plan_commit_sha: ${{ needs.plan.outputs.plan_commit_sha }}
-      plan_artifact_name: ${{ needs.plan.outputs.plan_artifact_name }}
+      plan_commit_sha: ${{ github.sha }}
+      plan_artifact_name: "tf-plan-${{ inputs.target_env }}-${{ github.run_id }}"
       change_ref: ${{ inputs.change_ref }}
     secrets: inherit
