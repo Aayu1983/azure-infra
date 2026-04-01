@@ -1,4 +1,4 @@
-name: "Workflow to ."
+name: "Workflow for Terraform Infra Deployment"
 
 run-name: "TF ${{ inputs.target_env }} | ${{ inputs.change_ref }} | @${{ github.actor }} | ${{ github.ref_name }}"
 
@@ -43,6 +43,8 @@ jobs:
   preflight:
     name: "Preflight"
     uses: Aayu1983/centeral-repo/.github/workflows/Preflight.yml@main
+    outputs:
+      selected_branch: ${{ jobs.setup.outputs.selected_branch }}
     with:
       target_env: ${{ inputs.target_env }}
       working_directory: ${{ inputs.working_directory }}
